@@ -5,10 +5,12 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "babel-node ./src/server.js",
-		"test": "jest  --watchAll --verbose --coverage"
+		"test": "jest"
 	},
 	"jest": {
-		"testEnvironment": "node"
+		"testMatch": [
+			"<rootDir>/src/test/**.test.js"
+		]
 	},
 	"repository": {
 		"type": "git",
@@ -34,7 +36,10 @@
 		"mongoose": "^5.8.1"
 	},
 	"devDependencies": {
+		"@babel/preset-env": "^7.7.6",
 		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-jest": "^24.9.0",
 		"babel-preset-env": "^1.7.0",
 		"jest": "^24.9.0",
 		"supertest": "^4.0.2"
