@@ -4,6 +4,7 @@
 	"description": "Book Store API",
 	"main": "server.js",
 	"scripts": {
+		"start": "babel-node ./src/server.js",
 		"test": "jest  --watchAll --verbose --coverage"
 	},
 	"jest": {
@@ -33,6 +34,8 @@
 		"mongoose": "^5.8.1"
 	},
 	"devDependencies": {
+		"babel-cli": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
 		"jest": "^24.9.0",
 		"supertest": "^4.0.2"
 	}
