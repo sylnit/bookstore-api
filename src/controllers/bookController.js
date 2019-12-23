@@ -55,12 +55,17 @@ const createBook = (req, res) => {
 
 const updateBook = (req, res) => {
 	const query = { _id: req.params.bookId };
-	Book.findOneAndUpdate(query, req.body, { upsert: true }, (err, book) => {
-		if (err) return res.status(400).json({ error: err });
-		return res
-			.status(200)
-			.json({ msg: "Book successfully updated.", data: book });
-	});
+	Book.findOneAndUpdate(
+		query,
+		req.body,
+		{ new: true, useFindAndModify: false },
+		(err, book) => {
+			if (err) return res.status(400).json({ error: err });
+			return res
+				.status(200)
+				.json({ msg: "Book successfully updated.", data: book });
+		}
+	);
 };
 
 const deleteBook = (req, res) => {
