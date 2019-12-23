@@ -8,13 +8,17 @@ const getBooks = (req, res) => {
 		//get all books
 		Book.find({}, (err, books) => {
 			if (err) return res.status(400).json({ error: err });
-			res.status(200).json({ msg: "Books successfully retrieved", books });
+			return res
+				.status(200)
+				.json({ msg: "Books successfully retrieved", books });
 		});
 	} else if (isbn || author) {
 		//search with these fields
 		Book.find({ $or: [{ isbn: isbn }, { author: author }] }, (err, books) => {
 			if (err) return res.status(400).json({ error: err });
-			res.status(200).json({ msg: "Books successfully retrieved", books });
+			return res
+				.status(200)
+				.json({ msg: "Books successfully retrieved", books });
 		});
 	}
 };
@@ -36,13 +40,15 @@ const createBook = (req, res) => {
 			newBook
 				.save()
 				.then(data => {
-					res.status(200).json({ msg: "Book successfully created.", data });
+					return res
+						.status(200)
+						.json({ msg: "Book successfully created.", data });
 				})
 				.catch(err => {
-					res.status(400).json({ error: err });
+					return res.status(400).json({ error: err });
 				});
 		} else {
-			res.status(404).json({ msg: "Author not found." });
+			return res.status(404).json({ msg: "Author not found." });
 		}
 	});
 };
@@ -51,7 +57,9 @@ const updateBook = (req, res) => {
 	const query = { _id: req.params.bookId };
 	Book.findOneAndUpdate(query, req.body, { upsert: true }, (err, book) => {
 		if (err) return res.status(400).json({ error: err });
-		res.status(200).json({ msg: "Book successfully updated.", data: book });
+		return res
+			.status(200)
+			.json({ msg: "Book successfully updated.", data: book });
 	});
 };
 
@@ -68,7 +76,7 @@ const deleteBook = (req, res) => {
 		}
 		Book.deleteOne(query, err => {
 			if (err) return res.status(400).json({ error: err });
-			res
+			return res
 				.status(200)
 				.json({ msg: `Book with ID: ${req.params.bookId} has been deleted` });
 		});

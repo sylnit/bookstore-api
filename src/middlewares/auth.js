@@ -10,12 +10,12 @@ export default (req, res, next) => {
 			token = req.headers.authorization.split(" ")[1];
 		}
 		if (!token) {
-			res.status(404).json({ msg: "Token must be supplied in header." });
+			return res.status(404).json({ msg: "Token must be supplied in header." });
 		} else {
 			if (validToken(token)) {
 				next();
 			} else {
-				res.status(404).json({ msg: "Invalid token." });
+				return res.status(404).json({ msg: "Invalid token." });
 			}
 		}
 	} catch (e) {

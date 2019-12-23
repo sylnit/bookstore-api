@@ -24,13 +24,13 @@ const createUser = (req, res) => {
 					user
 				});
 				newAuthor.save(function(err) {
-					if (err) res.status(400).json({ error: err });
+					if (err) return res.status(400).json({ error: err });
 				});
 			}
-			res.status(200).json({ msg: "User successfully create.", data });
+			return res.status(200).json({ msg: "User successfully create.", data });
 		})
 		.catch(err => {
-			res.status(400).json({ msg: "User creation failed.", error: err });
+			return res.status(400).json({ msg: "User creation failed.", error: err });
 		});
 };
 
@@ -61,7 +61,7 @@ const login = (req, res) => {
 				user_id: userId,
 				author_id: authorId
 			});
-			res.status(200).json({
+			return res.status(200).json({
 				msg: "Login successful",
 				data: { token: authToken, user: user }
 			});
