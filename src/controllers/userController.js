@@ -14,7 +14,7 @@ const createUser = (req, res) => {
 	const newUser = new User({ username, password, user_type });
 	newUser
 		.save()
-		.then(data => {
+		.then(async data => {
 			if (user_type == "AUTHOR") {
 				const user = data._id;
 				const newAuthor = new Author({
@@ -23,11 +23,19 @@ const createUser = (req, res) => {
 					emailAddress,
 					user
 				});
-				newAuthor.save(function(err) {
-					if (err) return res.status(400).json({ error: err });
-				});
+				await newAuthor
+					.save()
+					.then(() => {
+						return res
+							.status(200)
+							.json({ msg: "User successfully create.", data });
+					})
+					.catch(err => {
+						return res.status(400).json({ error: err });
+					});
+			} else {
+				return res.status(200).json({ msg: "User successfully create.", data });
 			}
-			return res.status(200).json({ msg: "User successfully create.", data });
 		})
 		.catch(err => {
 			return res.status(400).json({ msg: "User creation failed.", error: err });
