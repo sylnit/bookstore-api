@@ -8,7 +8,7 @@ const bookSchema = new mongoose.Schema({
 		ref: "Author"
 	},
 	title: { type: String, required: true },
-	publish_date: { type }
+	publish_date: { type: Date, required: true }
 });
 
 const Book = mongoose.model("Book", bookSchema);
