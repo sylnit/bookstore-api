@@ -1,4 +1,4 @@
-# bookstore-api
+# Bookstore API
 A basic api for a book store
 
 # Requirements
